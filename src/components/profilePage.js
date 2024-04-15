@@ -73,7 +73,7 @@ const profilePage = () => {
 
           <div className='w-[500px] h-[500px]  mx-auto bg-blue-100 p-8 rounded-2xl'>
 
-          <h2 className='text-4xl text-center py-4'>Inventory #4</h2>
+          <h2 className='text-4xl text-center py-4'>Inventory #3</h2>
           <img
               className="h-72 w-full object-cover object-center rounded-lg"
               src="https://img.freepik.com/free-photo/boxes-packed-relocation_23-2147758885.jpg?t=st=1713157679~exp=1713161279~hmac=13aab102d6955621a6834a69777bdfcea5c091051b318b6bed1f5e0f02c73965&w=1800"
