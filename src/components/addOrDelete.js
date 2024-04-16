@@ -9,59 +9,38 @@ const navigate = useNavigate();
 const [textValue, setTextValue] = useState('');
 const [imageValue, setImageValue] = useState('');
 const [showInputs, setShowInputs] = useState(true);
-//for items ion the box
-const [newItem, setNewItem] = useState("");
-const [items, setItems] = useState([]);
-const [showEdit, setShowEdit] = useState(-1);
-const [updatedText, setUpdatedText] = useState("");
+//for items in the box
+const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(()=>{
+      if(localStorage.getItem("localTasks")){
+          const storedList = JSON.parse(localStorage.getItem("localTasks"));
+          setTasks(storedList);
+      }
+  },[])
+
+  const addTask = (e) => {
+    if (task) {
+      const newTask = { id: new Date().getTime().toString(), title: task };
+      setTasks([...tasks, newTask]);
+      localStorage.setItem("localTasks", JSON.stringify([...tasks, newTask]));
+      setTask("");
+    }
+  };
+
+  const handleDelete = (task)=>{
+      const deleted = tasks.filter((t)=>t.id !== task.id);
+      setTasks(deleted);
+      localStorage.setItem("localTasks", JSON.stringify(deleted))
+  }
+
+  const handleClear=()=>{
+      setTasks([]);
+      localStorage.removeItem("localTasks");
+  }
 
 const userName = JSON.parse(localStorage.getItem("user"));
-
-function addItem() {//for items in the box
-    // ! Check for empty item
-    if (!newItem) {
-      alert("Press enter an item.");
-      return;
-    }
-
-    const item = {
-      id: Math.floor(Math.random() * 1000),
-      value: newItem,
-    };
-
-    // Add new item to items array
-    setItems((oldList) => [...oldList, item]);
-
-    // Reset newItem back to original state
-    setNewItem("");
-  }
-
-  //FOR DELETING ITEMS
- 
-  function deleteItem(id) {
-    const newArray = items.filter((item) => item.id !== id);
-    setItems(newArray);
-  }
-
-  /* Edit an item text after creating it. */
-  function editItem(id, newText) {
-    // Get the current item
-    const currentItem = items.filter((item) => item.id === id);
-
-    // Create a new item with same id
-    const newItem = {
-      id: currentItem.id,
-      value: newText,
-    };
-
-    deleteItem(id);
-
-    // Replace item in the item list
-    setItems((oldList) => [...oldList, newItem]);
-    setUpdatedText("");
-    setShowEdit(-1);
-  }
-
 
 
     useEffect(() => {
@@ -143,13 +122,13 @@ function addItem() {//for items in the box
 
     <div className='relative w-full h-screen bg-zinc-900/90'> {/*Middle of the page*/}
     <div className='flex items-center h-screen'>
-    <div className='w-[900px] h-[900px]  mx-auto bg-blue-100 p-8 rounded-2xl'>
+    <div className='w-[900px] h-[1200px]  mx-auto  p-8 rounded-2xl'>
 
     <div className='flex '>
     {showInputs ? (
         <div className='flex justify-center items-center h-full'>
           <div className='p-8'>
-            <h1> Name the inventory
+            <h1 className='text-2xl text-blue-600/100 dark:text-blue-500/100'> Name the inventory
             <input
             className='border relative bg-white p-2 '
               type="text"
@@ -160,7 +139,7 @@ function addItem() {//for items in the box
             </h1>
           </div>
           <div className='p-8'>
-          <h1> Picture of the inventory:
+          <h1 className='text-2xl text-blue-600/100 dark:text-blue-500/100'> Picture of the inventory:
             <input
               type="file"
               accept="image/*"
@@ -168,7 +147,7 @@ function addItem() {//for items in the box
             />
             </h1>
           </div>
-          <button className='w-full py-3 mt-8 bg-indigo-600 hover:bg-indigo-500 relative text-white' onClick={handleDisplay}>Save</button>
+          <button className='w-72 py-3 mt-8 bg-indigo-600 hover:bg-indigo-500  text-white' onClick={handleDisplay}>Save</button>
         </div>
       ) : (
         <div className='flex  items-center h-full mx-auto space-x-2 md:space-x-8 p-4'>
@@ -180,49 +159,63 @@ function addItem() {//for items in the box
       )}
       </div> {/*end of inventory pic and name*/}
 
-      <div className='text-center'> {/*ADDING ITEMS*/}
-        <h1 className='text-center text-4xl text-blue-600/100 dark:text-blue-500/100'>Add items in the inventory</h1>
+      <div className='text-center '> {/*ADDING ITEMS*/}
+      <div className="">
+      <h1 className="mt-3 text-5xl font-semibold text-blue-600/100 dark:text-blue-500/100">ADD ITEMS</h1>
+      <div className="col-8">
         <input
-        className='text-2xl py-1'
-        type="text"
-        placeholder="Add an item..."
-        value={newItem}
-        onChange={(e) => setNewItem(e.target.value)}
-      />
-      <button className='py-1 mt-8 relative bg-indigo-500 w-36 mx-4 h-' onClick={() => addItem()}>Add</button>
+          name="task"
+          type="text"
+          value={task}
+          placeholder="add your item..."
+          className='border relative bg-white p-2 w-full mt-4'
+          onChange={(e) => setTask(e.target.value)}
+        />
+      </div>
+      <div className="col-4">
+        <button
+          className='w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-500 relative text-white'
+          onClick={addTask}
+        >
+          add
+        </button>
+      </div>
+      <div className="text-white">
+        Box has
+        {!tasks.length
+          ? " no items"
+          : tasks.length === 1
+          ? " 1 item"
+          : tasks.length > 1
+          ? ` ${tasks.length} items`
+          : null}
+      </div>
+      {tasks.map((task) => (
+        <React.Fragment key={task.id}>
+            <h1>
+                <h1 className = "w-full py-1 mt-2 bg-white text-black relative text-white px-4"
+                style={{textAlign: "left", fontWeight: "bold"}}>
+                    {task.title}
+                </h1>
+            </h1>
 
-      <ul> {/* TO SHOW ITEMS */}
-        {items.map((item) => {
-          return (
-            <div>
-              <li key={item.id} onClick={() => setShowEdit(item.id)}>
-                {item.value}
+            <div className="flex relative">
                 <button
-                  className="delete-button"
-                  onClick={() => deleteItem(item.id)}
-                >
-                  ❌
-                </button>
-              </li>
-
-              {showEdit == item.id ? (
-                <div>
-                  <input
-                    type="text"
-                    value={updatedText}
-                    onChange={(e) => setUpdatedText(e.target.value)}
-                  />
-                  <button className='text-black' onClick={() => editItem(item.id, updatedText)}>
-                    Update
-                  </button>
-                </div>
-              ) : null}
+                className =" mt-2 text-white"
+                onClick ={()=> handleDelete(task)}
+                >delete</button>
             </div>
-          );
-        })}
-      </ul>
-
-      </div>{/* END OF ADDING ITEMS*/}
+        </React.Fragment>
+      ))}
+      {!tasks.length ? null:(
+          <div>
+              <button className= "btn btn-secondary  mt-4 mb-4 text-white" onClick={()=>handleClear()}>
+                  Clear
+              </button>
+          </div>
+      )}
+    </div>
+      </div> {/*ADDING ITEMS*/}
 
     </div>
   </div>
