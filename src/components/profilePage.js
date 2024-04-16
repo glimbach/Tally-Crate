@@ -6,8 +6,7 @@ import {useNavigate} from "react-router-dom";
 
 const profilePage = () => {
     const navigate = useNavigate();
- 
-
+   
   const userName = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () =>{
@@ -49,7 +48,7 @@ const profilePage = () => {
           
           <div className='w-[500px] h-[500px]  mx-auto bg-blue-100 p-8 rounded-2xl '> 
 
-            <h2 className='text-4xl text-center py-4'>Inventory #1</h2>
+          <h2 className='text-4xl text-center py-4'>Inventory #1</h2>
             <img
               className="h-72 w-full object-cover object-center rounded-lg"
               src="https://img.freepik.com/free-photo/boxes-packed-relocation_23-2147758885.jpg?t=st=1713157679~exp=1713161279~hmac=13aab102d6955621a6834a69777bdfcea5c091051b318b6bed1f5e0f02c73965&w=1800"
@@ -67,7 +66,7 @@ const profilePage = () => {
               src="https://img.freepik.com/free-photo/boxes-packed-relocation_23-2147758885.jpg?t=st=1713157679~exp=1713161279~hmac=13aab102d6955621a6834a69777bdfcea5c091051b318b6bed1f5e0f02c73965&w=1800"
               alt="nature image"
               />
-          <button className='w-full py-3 mt-8 bg-indigo-600 hover:bg-indigo-500 relative text-white rounded-lg'>Add Items or Edit</button>
+          <button className='w-full py-3 mt-8 bg-indigo-600 hover:bg-indigo-500 relative text-white rounded-lg' onClick={() => navigate("/addOrDelete")}>Add Items or Edit</button>
         
           </div>  {/* second box */}
 

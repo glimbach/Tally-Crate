@@ -8,6 +8,10 @@ import {useNavigate} from "react-router-dom";
 
 const Login = () =>{
     const navigate = useNavigate();
+
+    
+
+
     const[input, setInput] = useState({
         email:"",
         password:"",
@@ -35,6 +39,7 @@ const Login = () =>{
 
         <form className='max-w-[400px] w-full mx-auto bg-blue-100 p-8 rounded-2xl' onSubmit={handleLogin}>
             <h2 className='text-4xl text-center py-4'>Tally<span className="font-bold">Crate</span></h2>
+           
             <div className='flex flex-col mb-4'>
                 <label>Email</label>
                 <input className='border relative bg-white p-2' type="text" 
@@ -42,6 +47,7 @@ const Login = () =>{
                  value={input.email}
                  onChange={(e) => setInput({...input,[e.target.name]:e.target.value,})}
                 />
+                
             </div>
             <div className='flex flex-col '>
                 <label>Password</label>

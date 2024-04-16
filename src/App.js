@@ -5,6 +5,7 @@ import Login from './components/login';
 import Profile from './components/profilePage';
 import Register from './components/Register';
 import ProtectedRoutes from './Services/ProtectedRoutes';
+import Add from './components/addOrDelete';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element = {<Navbar/>}/>
         <Route path = "/login" element = {<Login/>}/>
+        <Route path = "/addOrDelete" element = {<Add/>}/>
         <Route path = "/" element = {<ProtectedRoutes/>}>
         <Route path = "/profilePage" element = {<Profile/>}/>
         </Route> 
