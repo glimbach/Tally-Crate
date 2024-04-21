@@ -16,7 +16,7 @@ const [task, setTask] = useState("");
   useEffect(()=>{
       if(localStorage.getItem("localTasks")){
           const storedList = JSON.parse(localStorage.getItem("localTasks"));
-          setTasks(storedList);
+          setTasks(storedList); //this can stay like this since it is for the session and not for the database
       }
   },[])
 
@@ -24,7 +24,7 @@ const [task, setTask] = useState("");
     if (task) {
       const newTask = { id: new Date().getTime().toString(), title: task };
       setTasks([...tasks, newTask]);
-      localStorage.setItem("localTasks", JSON.stringify([...tasks, newTask]));
+      localStorage.setItem("localTasks", JSON.stringify([...tasks, newTask])); //this is for entering the item into the databse 
       setTask("");
     }
   };
@@ -32,12 +32,12 @@ const [task, setTask] = useState("");
   const handleDelete = (task)=>{
       const deleted = tasks.filter((t)=>t.id !== task.id);
       setTasks(deleted);
-      localStorage.setItem("localTasks", JSON.stringify(deleted))
+      localStorage.setItem("localTasks", JSON.stringify(deleted))//this will be to delete the item from the databse ex. ( await axios.delete(`http://localhost:8800/books/${id}`);)
   }
 
   const handleClear=()=>{
       setTasks([]);
-      localStorage.removeItem("localTasks");
+      localStorage.removeItem("localTasks"); //this will be to clear the list of items
   }
 
 const userName = JSON.parse(localStorage.getItem("user"));
@@ -75,7 +75,7 @@ const userName = JSON.parse(localStorage.getItem("user"));
           reader.onload = (e) => {
             const imageDataUrl = e.target.result;
             setImageValue(imageDataUrl);
-            localStorage.setItem('imageValue', imageDataUrl);
+            localStorage.setItem('imageValue', imageDataUrl); 
           };
           reader.readAsDataURL(file);
         }
@@ -193,7 +193,7 @@ const userName = JSON.parse(localStorage.getItem("user"));
       {tasks.map((task) => (
         <React.Fragment key={task.id}>
             <h1>
-                <h1 className = "w-full py-1 mt-2 bg-white text-black relative text-white px-4"
+                <h1 className = "w-full py-1 mt-2 bg-white text-black relative text-BLACK px-4"
                 style={{textAlign: "left", fontWeight: "bold"}}>
                     {task.title}
                 </h1>

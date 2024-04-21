@@ -22,7 +22,7 @@ const Login = () =>{
         e.preventDefault();
         const loggeduser = JSON.parse(localStorage.getItem("user"));
         if(input.email === loggeduser.email && input.password === loggeduser.password){
-            localStorage.setItem("loggedin",true);
+            localStorage.setItem("loggedin",true); //this can remain in local storage since it will be for knowing that the user is logged in
             navigate("/profilePage");
         }
         else{

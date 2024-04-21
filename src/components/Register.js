@@ -20,7 +20,7 @@ const Register = () => {
     //to store value in local storage
     const handleSubmit = (e) => {
         e.preventDefault();
-        localStorage.setItem("user",JSON.stringify(input));
+        localStorage.setItem("user",JSON.stringify(input)); //this will be for the database and different items can be used by input.name, input.password, input.email
         navigate("/login");
     }
     
