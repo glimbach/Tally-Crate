@@ -8,10 +8,6 @@ import {useNavigate} from "react-router-dom";
 
 const Login = () =>{
     const navigate = useNavigate();
-
-    
-
-
     const[input, setInput] = useState({
         email:"",
         password:"",
@@ -45,6 +41,7 @@ const Login = () =>{
                 <input className='border relative bg-white p-2' type="text" 
                  name="email"
                  value={input.email}
+                 required
                  onChange={(e) => setInput({...input,[e.target.name]:e.target.value,})}
                 />
                 
@@ -54,6 +51,7 @@ const Login = () =>{
                 <input className='border relative bg-white p-2' type="password" 
                  name="password"
                  value={input.password}
+                 required
                  onChange={(e) => setInput({...input,[e.target.name]:e.target.value,})}
                 />
             </div>

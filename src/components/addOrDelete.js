@@ -124,7 +124,7 @@ const userName = JSON.parse(localStorage.getItem("user"));
     <div className='flex items-center h-screen'>
     <div className='w-[900px] h-[1200px]  mx-auto  p-8 rounded-2xl'>
 
-    <div className='flex '>
+    <div className='flex '> {/*pic and name of inventory*/}
     {showInputs ? (
         <div className='flex justify-center items-center h-full'>
           <div className='p-8'>

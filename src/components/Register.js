@@ -19,6 +19,7 @@ const Register = () => {
 
     //to store value in local storage
     const handleSubmit = (e) => {
+        
         e.preventDefault();
         localStorage.setItem("user",JSON.stringify(input)); //this will be for the database and different items can be used by input.name, input.password, input.email
         navigate("/login");
@@ -38,6 +39,7 @@ const Register = () => {
                 <input className='border relative bg-white p-2' type="text" 
                 name="name"
                 value={input.name}
+                required
                 onChange={(e) => setInput({...input,[e.target.name]:e.target.value,})}
                 />
             </div>
@@ -46,6 +48,7 @@ const Register = () => {
                 <input className='border relative bg-white p-2' type="password" 
                  name="password"
                  value={input.password}
+                 required
                  onChange={(e) => setInput({...input,[e.target.name]:e.target.value,})}
                 />
             </div>
@@ -54,11 +57,12 @@ const Register = () => {
                 <input className='border relative bg-white p-2' type="email" 
                  name="email"
                  value={input.email}
+                 required
                  onChange={(e) => setInput({...input,[e.target.name]:e.target.value,})}
                 />
             </div>
             <button className='w-full py-3 mt-8 bg-indigo-600 hover:bg-indigo-500 relative text-white' type="submit">Sign Up</button>
-            <button className='w-full py-3 mt-8 bg-indigo-600 hover:bg-indigo-500 relative text-white' onClick={() => navigate("/Register")}>already a user? log in</button>
+            <button className='w-full py-3 mt-8 bg-indigo-600 hover:bg-indigo-500 relative text-white' onClick={() => navigate("/login")}>already a user? log in</button>
         </form>
     </div>
     </div>
